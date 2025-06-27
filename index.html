@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Student Basic Details -->
+    <h1>Student Registration</h1>
+    <div id="student-info">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter Name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="regNo">Registration Number</label>
+        <input type="text" id="regNo" placeholder="Enter Registration Number" required>
+      </div>
+
+      <div class="form-group">
+        <label for="department">Department</label>
+        <input type="text" id="department" placeholder="Enter Department" required>
+      </div>
+
+      <div class="form-group">
+        <label for="admissionType">Admission Type</label>
+        <select id="admissionType" required>
+          <option value="">Select Admission Type</option>
+          <option value="Regular">Regular</option>
+          <option value="Self-Support">Self-Support</option>
+          <option value="Lateral">Lateral</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- GPA Calculator -->
+    <div class="calculator-section">
+      <h2>GPA Calculator (For One Semester)</h2>
+      <form id="gpaForm">
+        <div id="gpa-subjects-container">
+          <div class="subject">
+            <label>Subject Name</label>
+            <input type="text" placeholder="Subject Name" required>
+            <label>Credits</label>
+            <input type="number" placeholder="Credits" required>
+            <label>Grade (0-10)</label>
+            <input type="number" placeholder="Grade (0-10)" min="0" max="10" required>
+          </div>
+        </div>
+        <button type="button" onclick="addSubject('gpa-subjects-container')">Add Subject</button>
+        <button type="submit">Calculate GPA</button>
+      </form>
+      <p id="gpa-result">Your GPA: N/A</p>
+    </div>
+
+    <!-- CGPA Calculator -->
+    <div class="calculator-section">
+      <h2>CGPA Calculator (Multiple Semesters)</h2>
+      <form id="cgpaForm">
+        <div id="cgpa-semesters-container">
+          <div class="semester">
+            <label>GPA for Semester</label>
+            <input type="number" placeholder="GPA for Semester" min="0" max="10" step="0.01" required>
+            <label>Total Credits for Semester</label>
+            <input type="number" placeholder="Total Credits for Semester" required>
+          </div>
+        </div>
+        <button type="button" onclick="addSemester()">Add Semester</button>
+        <button type="submit">Calculate CGPA</button>
+      </form>
+      <p id="cgpa-result">Your CGPA: N/A</p>
+    </div>
+
+    <!-- Register Button (after calculations) -->
+    <form id="registrationForm">
+      <button type="submit">Register</button>
+    </form>
+
+    <!-- Navigation -->
+    <div class="buttons">
+      <button onclick="window.location.href='students.html'">Show Student Details</button>
+      <button onclick="window.location.href='regular.html'">Show Regular Students</button>
+      <button onclick="window.location.href='selfsupport.html'">Show Self-Support Students</button>
+      <button onclick="window.location.href='lateral.html'">Show Lateral Students</button>
+      <button onclick="window.location.href='admissionCount.html'">Show Admission Count</button>
+      <button onclick="clearAllData()">Clear All Student Data</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

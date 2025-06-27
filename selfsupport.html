@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Support Students</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Self-Support Students</h1>
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Reg No</th>
+                    <th>Department</th>
+                    <th>Admission Type</th>
+                    <th>CGPA</th> <!-- CGPA Column Added -->
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchSelfSupportStudents() {
+            try {
+                const response = await fetch("http://localhost:5000/selfsupport");
+                const students = await response.json();
+
+                // Log the fetched students data for debugging
+                console.log("Fetched self-support students:", students);
+
+                const tableBody = document.querySelector("#studentsTable tbody");
+
+                // Assuming the data is an array of arrays where each row is a student
+                students.forEach(studentData => {
+                    const student = {
+                        name: studentData[0],          // Assuming 'name' is the first column
+                        regNo: studentData[1],         // Assuming 'regNo' is the second column
+                        department: studentData[2],     // Assuming 'department' is the third column
+                        admissionType: studentData[3], // Assuming 'admissionType' is the fourth column
+                        cgpa: studentData[4]           // Assuming 'cgpa' is the fifth column
+                    };
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${student.name}</td>
+                        <td>${student.regNo}</td>
+                        <td>${student.department}</td>
+                        <td>${student.admissionType}</td>
+                        <td>${student.cgpa !== undefined ? student.cgpa : 'N/A'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching students:", error);
+            }
+        }
+
+        fetchSelfSupportStudents();
+    </script>
+</body>
+</html>

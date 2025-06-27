@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lateral Students</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lateral Students</h1>
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Reg No</th>
+                    <th>Department</th>
+                    <th>Admission Type</th>
+                    <th>CGPA</th> <!-- Added CGPA column -->
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchLateralStudents() {
+            try {
+                const response = await fetch("http://localhost:5000/lateral");
+                const students = await response.json();
+                console.log("Lateral Students:", students); // Debug log
+
+                const tableBody = document.querySelector("#studentsTable tbody");
+
+                students.forEach(studentData => {
+                    const student = {
+                        name: studentData[0],
+                        regNo: studentData[1],
+                        department: studentData[2],
+                        admissionType: studentData[3],
+                        cgpa: studentData[4]
+                    };
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${student.name}</td>
+                        <td>${student.regNo}</td>
+                        <td>${student.department}</td>
+                        <td>${student.admissionType}</td>
+                        <td>${student.cgpa !== undefined ? student.cgpa : 'N/A'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching lateral students:", error);
+            }
+        }
+
+        fetchLateralStudents();
+    </script>
+</body>
+</html>

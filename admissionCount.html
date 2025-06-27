@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Count</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admission Count</h1>
+        <table id="countTable">
+            <thead>
+                <tr>
+                    <th>Admission Type</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchAdmissionCount() {
+            try {
+                const response = await fetch("http://localhost:5000/admissioncount");
+                const counts = await response.json();
+                const tableBody = document.querySelector("#countTable tbody");
+
+                counts.forEach(count => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${count[0]}</td>
+                        <td>${count[1]}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching admission count:", error);
+            }
+        }
+
+        fetchAdmissionCount();
+    </script>
+</body>
+</html>
